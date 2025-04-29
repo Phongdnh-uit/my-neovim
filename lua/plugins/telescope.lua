@@ -9,6 +9,7 @@ return {
 						prompt_position = "top",
 					},
 					sorting_strategy = "ascending",
+                    file_ignore_patterns = { "%.class$" },
 				},
 				pickers = {
 					find_files = { hidden = true },

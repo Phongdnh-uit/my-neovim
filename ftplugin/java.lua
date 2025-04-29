@@ -55,8 +55,8 @@ local config = {
             configuration = {
                 runtimes = {
                     {
-                        name = "JavaSE-23",
-                        path = "/usr/java/jdk-23-oracle-x64",
+                        name = "JavaSE-24",
+                        path = "/usr/java/jdk-24-oracle-x64",
                     },
                 },
             },

@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "ts_ls", "eslint", "jdtls" },
+                ensure_installed = { "lua_ls", "ts_ls", "eslint", "jdtls", "gopls", "rust_analyzer" },
             })
         end,
     },
@@ -18,10 +18,14 @@ return {
         config = function()
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local lspconfig = require("lspconfig")
+
+            -- lua config
             lspconfig.lua_ls.setup({})
             lspconfig.ts_ls.setup({
                 capabilities = capabilities,
             })
+
+            -- eslint config
             lspconfig.eslint.setup({
                 on_attach = function(client, bufnr)
                     vim.api.nvim_create_autocmd("BufWritePre", {
@@ -30,8 +34,14 @@ return {
                     })
                 end,
             })
+
+            -- tailwindcss config
             lspconfig.tailwindcss.setup({})
+
+            -- go config
             lspconfig.gopls.setup({})
+
+            -- rust config
             lspconfig.rust_analyzer.setup({
                 settings = {
                     ["rust-analyzer"] = {
@@ -41,6 +51,22 @@ return {
                         checkOnSave = {
                             command = "clippy",
                         },
+                    },
+                },
+            })
+
+            -- yaml config
+            lspconfig.yamlls.setup({
+                settings = {
+                    yaml = {
+                        schemas = {
+                            ["https://json.schemastore.org/docker-compose.json"] = "docker-compose*.yml",
+                        },
+                        validate = true,
+                        format = {
+                            enable = true,
+                        },
+                        completion = true,
                     },
                 },
             })
@@ -72,7 +98,14 @@ return {
             nmap("[d", vim.diagnostic.goto_prev, "[G]oto [P]revious Diagnostics")
             nmap("]d", vim.diagnostic.goto_next, "[G]oto [N]ext Diagnostics")
             vim.diagnostic.config({
+                virtual_text = {
+                    prefix = " ",
+                    suffix = " 🤨",
+                    spacing = 4,
+                },
+                severity_sort = true,
                 float = {
+                    severity_sort = true,
                     border = "rounded",
                 },
             })
