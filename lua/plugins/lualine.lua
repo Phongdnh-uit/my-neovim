@@ -5,9 +5,11 @@ return {
 		require("lualine").setup({
 			options = {
 				icons_enabled = true,
-				theme = "material",
+				theme = "catppuccin",
+				disabled_filetypes = {},
 				component_separators = { left = "", right = "" },
-				section_separators = { left = "", right = "" },
+				-- section_separators = { left = " ", right = "" },
+				section_separators = { right = "", left = "" },
 			},
 			sections = {
 				lualine_a = {
@@ -27,7 +29,7 @@ return {
 					},
 					{
 						"diff",
-						icon = { "" , color = {fg = "#F5004F"}},
+						icon = { "", color = { fg = "#F5004F" } },
 						colored = true,
 					},
 				},
@@ -44,8 +46,26 @@ return {
 						},
 					},
 				},
+				lualine_x = {
+					function()
+						local ok, pomo = pcall(require, "pomo")
+						if not ok then
+							return ""
+						end
+
+						local timer = pomo.get_first_to_finish()
+						if timer == nil then
+							return ""
+						end
+
+						return "⏳ " .. tostring(timer)
+					end,
+					"encoding",
+					"fileformat",
+					"filetype",
+				},
 				lualine_y = {
-					{ "progress", icon = { "" , color={fg="#FFEB00"}} },
+					{ "progress", icon = { "", color = { fg = "#FFEB00" } } },
 				},
 
 				lualine_z = {

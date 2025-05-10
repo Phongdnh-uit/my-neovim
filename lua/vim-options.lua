@@ -12,6 +12,8 @@ vim.opt.cursorline = true
 vim.opt.clipboard = "unnamedplus"
 vim.opt.mousemoveevent = true
 vim.opt.colorcolumn = "94"
+vim.opt.signcolumn = "yes"
+vim.opt.visualbell = true
 
 -- Keymaps
 vim.keymap.set("i", "jk", "<esc>", { noremap = true, silent = true })
