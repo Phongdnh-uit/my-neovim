@@ -8,5 +8,9 @@
   "note": {
     "prefix": "note",
     "body": ["// ${1: number}. ---- ${2:Note} ----"]
+  },
+  "note": {
+    "prefix": "note",
+    "body": ["// ${1: number}. ---- ${2:Note} ----"]
   }
 }

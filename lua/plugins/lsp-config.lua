@@ -18,9 +18,9 @@ return {
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local lspconfig = require("lspconfig")
-
 			-- cpp config
 			lspconfig.clangd.setup({})
+
 
 			-- lua config
 			lspconfig.lua_ls.setup({})
@@ -73,6 +73,7 @@ return {
 					},
 				},
 			})
+
 			local nmap = function(keys, func, desc)
 				if desc then
 					desc = "LSP: " .. desc

@@ -8,7 +8,7 @@ return {
         local dap = require("dap")
         local dapui = require("dapui")
 
-        require("dapui").setup({
+        dapui.setup({
             sidebar = {
                 elements = {
                     "scopes",
