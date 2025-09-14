@@ -1,5 +1,5 @@
 {
-  "topic": {
+  "separate": {
     "prefix": "topic",
     "body": [
       "// ============================ ${1:Topic} ============================"
@@ -9,8 +9,25 @@
     "prefix": "note",
     "body": ["// ${1: number}. ---- ${2:Note} ----"]
   },
-  "note": {
-    "prefix": "note",
-    "body": ["// ${1: number}. ---- ${2:Note} ----"]
+  "doc": {
+    "prefix": "doc",
+    "body": [
+      "/**",
+      " * ${1:Short description of the class/method/field}.",
+      " *",
+      " * <p>${2:Description}</p>",
+      " *",
+      " * @param ${3:paramName} ${4:description of the parameter (if it's a method with parameters)}",
+      " * @param ${5:otherParam} ${6:description of another parameter}",
+      " * @return ${7:description of the return value (if any)}",
+      " * @throws ${8:ExceptionType} ${9:description of the case when the exception is thrown (if any)}",
+      " *",
+      " * @see ${10:ClassName#methodName} to link to another class/method",
+      " * @since ${11:version when this method/class started}",
+      " * @deprecated ${12:description of why it should not be used anymore, suggest an alternative}",
+      " * @author ${13:Name}",
+      " * @version 1.0",
+      " */"
+    ]
   }
 }

@@ -22,3 +22,7 @@ vim.keymap.set("n", "<S-Right>", ":vertical resize -2<CR>", { noremap = true, si
 vim.keymap.set("n", "<S-Left>", ":vertical resize +2<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Up>", ":resize +2<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<S-Down>", ":resize -2<CR>", { noremap = true, silent = true })
+
+-- Split window
+vim.keymap.set("n", "<leader>sh", ":vsplit<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>sv", ":split<CR>", { noremap = true, silent = true })
