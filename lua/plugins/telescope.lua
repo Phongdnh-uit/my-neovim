@@ -41,7 +41,7 @@ return {
 				builtin.live_grep,
 				{ noremap = true, silent = true, desc = "[T]elescope [L]ive [G]rep" }
 			)
-			vim.keymap.set("n", "<leader>fh", builtin.help_tags, {
+			vim.keymap.set("n", "<leader>ht", builtin.help_tags, {
 				noremap = true,
 				silent = true,
 				desc = "[T]elescope [H]elp Tags",

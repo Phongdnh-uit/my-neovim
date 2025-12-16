@@ -22,7 +22,8 @@ return {
 					show_token_count = true,
 				},
 			},
-			strategies = {
+
+			interactions = {
 				chat = {
 					adapter = "copilot",
 					keymaps = {
