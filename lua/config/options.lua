@@ -17,3 +17,6 @@ vim.opt.mousemoveevent = true
 vim.opt.colorcolumn = "94"
 vim.opt.signcolumn = "yes"
 vim.opt.visualbell = true
+vim.opt.laststatus = 3
+vim.opt.showmode = false
+vim.opt.termguicolors = true

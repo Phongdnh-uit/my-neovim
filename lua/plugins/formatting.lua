@@ -1,24 +1,39 @@
 return {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-        "nvimtools/none-ls-extras.nvim",
-        "williamboman/mason.nvim",
-        "jay-babu/mason-null-ls.nvim",
-    },
-    config = function()
-        local null_ls = require("null-ls")
-        null_ls.setup({
-            sources = {
-                null_ls.builtins.formatting.stylua,
-                null_ls.builtins.formatting.prettier,
-                null_ls.builtins.formatting.google_java_format,
-                require("none-ls.diagnostics.eslint_d"),
-            },
-        })
+	"stevearc/conform.nvim",
+	event = { "BufReadPre", "BufNewFile" },
+	dependencies = {
+		"williamboman/mason.nvim",
+		"zapling/mason-conform.nvim", -- Tự động cài đặt formatters từ Mason
+	},
+	config = function()
+		local conform = require("conform")
 
-        require("mason-null-ls").setup({
-            automatic_installation = true,
-        })
-        vim.keymap.set("n", "<S-M-F>", vim.lsp.buf.format, {})
-    end,
+		conform.setup({
+			formatters_by_ft = {
+				lua = { "stylua" },
+				javascript = { "prettier" },
+				typescript = { "prettier" },
+				java = { "google-java-format" },
+				go = { "goimports", "gofmt" },
+			},
+			-- Format khi lưu (tùy chọn)
+			-- format_on_save = {
+			-- 	lsp_fallback = true,
+			-- 	async = false,
+			-- 	timeout_ms = 500,
+			-- },
+		})
+
+		-- Setup mason-conform để tự động cài các formatter ở trên
+		require("mason-conform").setup()
+
+		-- Keymap giống cũ của bạn
+		vim.keymap.set({ "n", "v" }, "<S-M-F>", function()
+			conform.format({
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 500,
+			})
+		end, { desc = "[F]ormat" })
+	end,
 }

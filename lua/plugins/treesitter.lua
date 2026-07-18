@@ -1,10 +1,10 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	lazy = false,
 	build = ":TSUpdate",
-	event = { "BufReadPost", "BufNewFile" },
 	config = function()
-		require("nvim-treesitter.configs").setup({
-			ensure_install = { "java", "html", "javascript" },
+		require("nvim-treesitter").setup({
+			ensure_installed = { "java" },
 			auto_install = true,
 			highlight = {
 				enable = true,
@@ -14,11 +14,5 @@ return {
 			indent = { enable = true },
 			fold = { enable = true },
 		})
-
-		vim.cmd([[
-        set foldmethod=expr
-        set foldexpr=nvim_treesitter#foldexpr()
-        set nofoldenable
-      ]])
 	end,
 }

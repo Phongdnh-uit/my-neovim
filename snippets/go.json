@@ -1,0 +1,72 @@
+{
+  "Gin Handler with Swagger": {
+    "prefix": "ghandler",
+    "body": [
+      "// ${1:HandlerName} godoc",
+      "// @Summary      ${2:Summary}",
+      "// @Description  ${3:Description}",
+      "// @Tags         ${4:Tags}",
+      "// @Accept       json",
+      "// @Produce      json",
+      "// @Param        request body ${5:dto.Request} true \"Request Body\"",
+      "// @Success      200 {object} utils.Response{data=${6:dto.Response}}",
+      "// @Failure      400 {object} utils.Response",
+      "// @Router       /${7:path} [post]",
+      "func (h *${8:HandlerStruct}) ${1:HandlerName}(c *gin.Context) {",
+      "\tvar req ${5:dto.Request}",
+      "\tif err := c.ShouldBindJSON(&req); err != nil {",
+      "\t\tutils.Error(c, err)",
+      "\t\treturn",
+      "\t}",
+      "",
+      "\tresult, err := h.uc.${1:HandlerName}(c.Request.Context(), &req)",
+      "\tif err != nil {",
+      "\t\tutils.Error(c, err)",
+      "\t\treturn",
+      "\t}",
+      "",
+      "\tutils.JSON(c, http.StatusOK, \"success\", result, nil)",
+      "}"
+    ],
+    "description": "Tạo một Gin Handler đầy đủ Swagger, Bind JSON và Error handling"
+  },
+  "Gin Get Param Handler": {
+    "prefix": "gget",
+    "body": [
+      "// ${1:HandlerName} godoc",
+      "// @Summary      ${2:Summary}",
+      "// @Tags         ${3:Tags}",
+      "// @Param        ${4:id} path string true \"ID/Key\"",
+      "// @Success      200 {object} utils.Response{data=${5:string}}",
+      "// @Router       /${6:path}/{${4:id}} [get]",
+      "func (h *${7:HandlerStruct}) ${1:HandlerName}(c *gin.Context) {",
+      "\t${4:id} := c.Param(\"${4:id}\")",
+      "",
+      "\tresult, err := h.uc.${1:HandlerName}(c.Request.Context(), ${4:id})",
+      "\tif err != nil {",
+      "\t\tutils.Error(c, err)",
+      "\t\treturn",
+      "\t}",
+      "",
+      "\tutils.JSON(c, http.StatusOK, \"success\", result, nil)",
+      "}"
+    ],
+    "description": "Tạo GET Handler lấy Path Variable"
+  },
+  "Go Doc": {
+    "prefix": "gdoc",
+    "body": [
+      "// ${1:HandlerName} godoc",
+      "// @Summary      ${2:Summary}",
+      "// @Description  ${3:Description}",
+      "// @Tags         ${4:Tags}",
+      "// @Accept       json",
+      "// @Produce      json",
+      "// @Param        request body ${5:dto.Request} true \"Request Body\"",
+      "// @Success      200 {object} domain.Response{data=${6:dto.Response}}",
+      "// @Failure      400 {object} domain.Response",
+      "// @Router       /${7:path} [post]"
+    ],
+    "description": "Tạo một Go Doc chuẩn Swagger cho Handler, Service hoặc Usecase"
+  }
+}
