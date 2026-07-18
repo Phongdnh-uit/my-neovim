@@ -1,70 +1,66 @@
 return {
-    {
-        "L3MON4D3/LuaSnip",
-        dependencies = {
-            "saadparwaiz1/cmp_luasnip",
-            "rafamadriz/friendly-snippets",
-        },
-    },
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-buffer",
-        },
-        config = function()
-            local cmp = require("cmp")
-            require("luasnip.loaders.from_vscode").lazy_load()
-            require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets" } })
-            local capabilities = require("cmp_nvim_lsp").default_capabilities()
-            capabilities.textDocument.completion.completionItem.snippetSupport = true
-            cmp.setup({
-                snippet = {
-                    expand = function(args)
-                        require("luasnip").lsp_expand(args.body)
-                    end,
-                },
-                window = {
-                    completion = cmp.config.window.bordered(),
-                    documentation = cmp.config.window.bordered(),
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    ["<Tab>"] = cmp.mapping.select_next_item(),
-                    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-                }),
-                sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "luasnip" },
-                }, {
-                    { name = "buffer" },
-                }),
-            })
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    {
-                        name = "cmdline",
-                        option = {
-                            ignore_cmds = { "Man", "!" },
-                        },
-                    },
-                }),
-            })
-        end,
-    },
+	"saghen/blink.cmp",
+	dependencies = {
+		"saghen/blink.lib",
+		-- optional: provides snippets for the snippet source
+		"rafamadriz/friendly-snippets",
+	},
+	build = function()
+		-- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+		-- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+		require("blink.cmp").build():pwait()
+	end,
+
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
+	opts = {
+		keymap = {
+			-- preset = "default",
+			preset = "none",
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-e>"] = { "hide", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = { "select_next", "fallback" },
+			["<S-Tab>"] = { "select_prev", "fallback" },
+			["<C-b>"] = { "scroll_documentation_up", "fallback" },
+			["<C-f>"] = { "scroll_documentation_down", "fallback" },
+		},
+
+		completion = {
+			documentation = {
+				enabled = true,
+				auto_show = true,
+				auto_show_delay_ms = 500,
+			},
+			ghost_text = {
+				show_with_menu = true,
+			},
+		},
+
+		sources = {
+			default = { "lsp", "path", "snippets", "buffer" },
+			per_filetype = {
+				sql = { "snippets", "dadbod", "buffer" },
+			},
+			providers = {
+				dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+			},
+		},
+
+		fuzzy = { implementation = "rust" },
+
+		cmdline = {
+			-- enabled = true, -- default is true, set to false to disable cmdline completion
+			completion = {
+				ghost_text = { enabled = true },
+				menu = { auto_show = true },
+			},
+		},
+
+		snippets = {},
+
+		appearance = {
+			nerd_font_variant = "mono",
+		},
+	},
 }

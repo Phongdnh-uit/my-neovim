@@ -16,7 +16,10 @@ if not root_dir then
 end
 
 local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
-local workspace_dir = workspace_path .. project_name
+
+-- Special case: company/backend vs personal/backend, we want to use the full path as the workspace name to avoid conflicts
+local unique_project_name = string.gsub(string.gsub(root_dir, "^/", ""), "/", "-")
+local workspace_dir = workspace_path .. unique_project_name
 
 local config = {
 	cmd = {
@@ -87,7 +90,7 @@ local config = {
 -- Add spring-boot jdtls extension jars
 local status_sb, spring_boot = pcall(require, "spring_boot")
 if status_sb then
-    vim.list_extend(config.init_options.bundles, spring_boot.java_extensions())
+	vim.list_extend(config.init_options.bundles, spring_boot.java_extensions())
 end
 
 -- vim.list_extend(config.init_options.bundles, require("spring_boot").java_extensions())

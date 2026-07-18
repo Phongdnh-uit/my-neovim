@@ -18,8 +18,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
 			-- java config
 			-- vim.lsp.enable("jdtls")
 			-- lspconfig.jdtls.setup({
@@ -46,15 +44,11 @@ return {
 			vim.lsp.config("lua_ls", {})
 			vim.lsp.enable("lua_ls")
 
-			vim.lsp.config("ts_ls", {
-				capabilities = capabilities,
-			})
+			vim.lsp.config("ts_ls", {})
 			vim.lsp.enable("ts_ls")
 
 			-- eslint config
-			vim.lsp.config("eslint", {
-				capabilities = capabilities,
-			})
+			vim.lsp.config("eslint", {})
 			vim.lsp.enable("eslint")
 
 			-- tailwindcss config
