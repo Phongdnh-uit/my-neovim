@@ -16,12 +16,12 @@ return {
 				java = { "google-java-format" },
 				go = { "goimports", "gofmt" },
 			},
-			-- Format khi lưu (tùy chọn)
-			-- format_on_save = {
-			-- 	lsp_fallback = true,
-			-- 	async = false,
-			-- 	timeout_ms = 500,
-			-- },
+			-- Format on save
+			format_on_save = {
+				lsp_fallback = true,
+				async = false,
+				timeout_ms = 1000,
+			},
 		})
 
 		-- Setup mason-conform để tự động cài các formatter ở trên

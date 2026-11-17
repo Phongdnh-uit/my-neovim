@@ -1,6 +1,7 @@
 return {
   {
     "RRethy/vim-illuminate",
+    enabled = false,
     event = "VeryLazy",
     opts = {
       delay = 200,

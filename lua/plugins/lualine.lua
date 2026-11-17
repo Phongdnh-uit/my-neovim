@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	dependencies = { "nvim-tree/nvim-web-devicons" },
+	dependencies = { "echasnovski/mini.icons" },
 	config = function()
 		require("lualine").setup({
 			options = {
@@ -38,11 +38,6 @@ return {
 						symbols = { error = " ", warn = " ", info = " ", hint = " " },
 					},
 					{
-						require("noice").api.statusline.mode.get,
-						cond = require("noice").api.statusline.mode.has,
-						color = { fg = "#ff9e64" },
-					},
-					{
 						"lsp_status",
 						icon = " ",
 						ignore_lsp = {
@@ -52,6 +47,16 @@ return {
 					},
 				},
 				lualine_x = {
+					{
+						function()
+							local reg = vim.fn.reg_recording()
+							if reg == "" then
+								return ""
+							end
+							return "󰑋 @" .. reg
+						end,
+						color = { fg = "#ff007c", gui = "bold" },
+					},
 					function()
 						local ok, pomo = pcall(require, "pomo")
 						if not ok then
@@ -80,6 +85,12 @@ return {
 					},
 				},
 			},
+		})
+
+		vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+			callback = function()
+				require("lualine").refresh({ place = { "statusline" } })
+			end,
 		})
 	end,
 }

@@ -18,7 +18,7 @@ return {
 		vim.g.db_ui_win_position = "right"
 		vim.g.db_ui_winwidth = 40
 
-		vim.g.db_ui_use_nvim_notify = 1
+		vim.g.db_ui_use_nvim_notify = 0
 	end,
 }
 -- { -- optional saghen/blink.cmp completion source

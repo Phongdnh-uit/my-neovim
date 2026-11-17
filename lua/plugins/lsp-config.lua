@@ -99,8 +99,12 @@ return {
 			nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 			nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 			nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-			nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-			nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+			nmap("<leader>ds", function()
+				Snacks.picker.lsp_symbols()
+			end, "[D]ocument [S]ymbols")
+			nmap("<leader>ws", function()
+				Snacks.picker.lsp_workspace_symbols()
+			end, "[W]orkspace [S]ymbols")
 			nmap("<leader>lr", vim.lsp.codelens.run, "[R]un [C]odelens")
 
 			-- See `:help K` for why this keymap
@@ -112,6 +116,7 @@ return {
 			nmap("[d", vim.diagnostic.goto_prev, "[G]oto [P]revious Diagnostics")
 			nmap("]d", vim.diagnostic.goto_next, "[G]oto [N]ext Diagnostics")
 			vim.diagnostic.config({
+				update_in_insert = false,
 				virtual_text = {
 					prefix = " ",
 					suffix = " 🤨",
